@@ -8,7 +8,6 @@ const MESSAGES = {
     ERROR_TOKEN_INVALID_FORMAT   : 'Formato del token invalido.',
     ERROR_TOKEN_REVOKED          : 'Token revocado.',
     ERROR_TOKEN_DOES_NOT_EXIST   : 'El token no existe.',
-    ERROR_AUTHENTICATION         : 'Error de autenticación.',
     ERROR_USER_NOT_FOUND         : 'No se ha encontrado el usuario.',
     ERROR_FETCH_FAILED           : 'Error al intentar obtener datos del usuario.',
     ERROR_AUTHENTICATION         : 'Nḿuero de trabajador y/o contraseña incorrectos',

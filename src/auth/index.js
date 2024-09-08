@@ -26,7 +26,7 @@ function getToken(authorization) {
         throw error(MESSAGES.ERROR_TOKEN_DOES_NOT_EXIST, 401);
     }
 
-    if (authorization.indexOf('Bearer') === -1) {
+    if (authorization.indexOf('Bearer') === -1){
         throw error(MESSAGES.ERROR_TOKEN_INVALID_FORMAT, 401);
     }
 
@@ -107,7 +107,7 @@ const validateToken = {
         const decoded = decodeHeader(req);
 
         if (!decoded) {   
-            throw error(MESSAGES.ERROR_AUTHENTICATION, 401)
+            throw error(MESSAGES.ERROR_TOKEN_DOES_NOT_EXIST, 401)
         }
 
         const id_auth = decoded.id_auth;
