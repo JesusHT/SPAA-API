@@ -8,9 +8,9 @@ const router = express.Router();
 
 router.get('/', security(), getAll);
 router.get('/:id',security(), get);
-router.delete('/', deleteItem);
+router.delete('/',security(), deleteItem);
 router.post('/', security(), insert);
-router.put('/', update);
+router.put('/', security(), update);
 
 async function getAll(req, res, next){
    try {
