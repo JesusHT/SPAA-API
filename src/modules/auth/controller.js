@@ -1,6 +1,6 @@
 const TABLE   = 'auth';
 const bcrypt  = require('bcrypt');
-const auth    = require('../../auth');
+const auth    = require('../../auth/authToken');
 const error   = require('../../middleware/errors');
 const MESSAGE = require('../../classes/messages');
 
