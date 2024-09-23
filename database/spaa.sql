@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 08, 2024 at 02:38 AM
+-- Generation Time: Sep 23, 2024 at 05:19 AM
 -- Server version: 8.0.39-0ubuntu0.24.04.2
 -- PHP Version: 8.3.6
 
@@ -30,15 +30,28 @@ SET time_zone = "+00:00";
 CREATE TABLE `auth` (
   `id_auth` int NOT NULL,
   `worker_number` int NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_role` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `auth`
 --
 
-INSERT INTO `auth` (`id_auth`, `worker_number`, `password`) VALUES
-(16, 20181834, '$2b$10$h2TFfuePs.1XeYZafcueaeRRENlu26Dtdl1LO.9az3EjXbbj9Bp6u');
+INSERT INTO `auth` (`id_auth`, `worker_number`, `password`, `id_role`) VALUES
+(1, 20181834, '$2b$10$h2TFfuePs.1XeYZafcueaeRRENlu26Dtdl1LO.9az3EjXbbj9Bp6u', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `borrowed_objects`
+--
+
+CREATE TABLE `borrowed_objects` (
+  `id_borrowed_object` int NOT NULL,
+  `id_lends` int NOT NULL,
+  `id_inventory` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -48,7 +61,7 @@ INSERT INTO `auth` (`id_auth`, `worker_number`, `password`) VALUES
 
 CREATE TABLE `brands` (
   `id_brand` int NOT NULL,
-  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+  `name` text COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -70,7 +83,7 @@ INSERT INTO `brands` (`id_brand`, `name`) VALUES
 
 CREATE TABLE `faculty` (
   `id_faculty` int NOT NULL,
-  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -85,21 +98,6 @@ INSERT INTO `faculty` (`id_faculty`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `history`
---
-
-CREATE TABLE `history` (
-  `id_history` int NOT NULL,
-  `table_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `action` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_user` int NOT NULL,
-  `timestamp` timestamp NOT NULL,
-  `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `inventory`
 --
 
@@ -109,14 +107,15 @@ CREATE TABLE `inventory` (
   `id_model` int DEFAULT NULL,
   `id_faculty` int DEFAULT NULL,
   `id_module` int NOT NULL,
-  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `quantity` int NOT NULL,
   `folio` int NOT NULL,
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `serie` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `serie` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `not_located` int DEFAULT NULL,
   `second_custodian` int DEFAULT NULL,
-  `image_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `image_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -126,21 +125,21 @@ CREATE TABLE `inventory` (
 --
 
 CREATE TABLE `lends` (
-  `id_loans` int NOT NULL,
+  `id_lends` int NOT NULL,
   `id_user` int NOT NULL,
-  `id_inventory` int NOT NULL,
   `date_start` timestamp NOT NULL,
-  `date_end` int DEFAULT NULL,
+  `date_end` date DEFAULT NULL,
   `date_real` date DEFAULT NULL,
   `status` int NOT NULL,
   `applicant` int NOT NULL,
   `num_account` int NOT NULL,
   `career` int NOT NULL,
   `semester` int NOT NULL,
-  `observations` int DEFAULT NULL,
-  `teacher` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `observations` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `teacher` text COLLATE utf8mb4_unicode_ci,
   `reminder_sent` tinyint(1) DEFAULT NULL,
-  `signature_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `signature_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -151,7 +150,7 @@ CREATE TABLE `lends` (
 
 CREATE TABLE `model` (
   `id_model` int NOT NULL,
-  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -179,7 +178,7 @@ INSERT INTO `model` (`id_model`, `name`) VALUES
 CREATE TABLE `modules` (
   `id_modules` int NOT NULL,
   `id_faculty` int NOT NULL,
-  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -199,7 +198,7 @@ INSERT INTO `modules` (`id_modules`, `id_faculty`, `name`) VALUES
 
 CREATE TABLE `roles` (
   `id_role` int NOT NULL,
-  `role_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `role_name` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -219,8 +218,9 @@ INSERT INTO `roles` (`id_role`, `role_name`) VALUES
 
 CREATE TABLE `settings` (
   `id_setting` int NOT NULL,
-  `setting_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `setting_value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `setting_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `setting_value` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_users` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -231,8 +231,7 @@ CREATE TABLE `settings` (
 
 CREATE TABLE `users` (
   `id_users` int NOT NULL,
-  `id_role` int NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int NOT NULL,
   `id_modules` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -241,8 +240,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_users`, `id_role`, `name`, `status`, `id_modules`) VALUES
-(16, 3, 'Fatima', 1, 2);
+INSERT INTO `users` (`id_users`, `name`, `status`, `id_modules`) VALUES
+(1, 'Fatima', 1, 2);
 
 --
 -- Indexes for dumped tables
@@ -253,7 +252,16 @@ INSERT INTO `users` (`id_users`, `id_role`, `name`, `status`, `id_modules`) VALU
 --
 ALTER TABLE `auth`
   ADD PRIMARY KEY (`id_auth`),
-  ADD UNIQUE KEY `worker_number` (`worker_number`);
+  ADD UNIQUE KEY `worker_number` (`worker_number`),
+  ADD KEY `auth_ibfk_1` (`id_role`);
+
+--
+-- Indexes for table `borrowed_objects`
+--
+ALTER TABLE `borrowed_objects`
+  ADD PRIMARY KEY (`id_borrowed_object`),
+  ADD KEY `borrowed_objects_ibfk_1` (`id_lends`),
+  ADD KEY `borrowed_objects_ibfk_2` (`id_inventory`);
 
 --
 -- Indexes for table `brands`
@@ -268,27 +276,21 @@ ALTER TABLE `faculty`
   ADD PRIMARY KEY (`id_faculty`);
 
 --
--- Indexes for table `history`
---
-ALTER TABLE `history`
-  ADD PRIMARY KEY (`id_history`);
-
---
 -- Indexes for table `inventory`
 --
 ALTER TABLE `inventory`
   ADD PRIMARY KEY (`id_inventory`),
   ADD KEY `inventory_ibfk_1` (`id_brand`),
   ADD KEY `inventory_ibfk_2` (`id_model`),
-  ADD KEY `inventory_ibfk_3` (`id_faculty`);
+  ADD KEY `inventory_ibfk_3` (`id_faculty`),
+  ADD KEY `inventory_ibfk_4` (`id_module`);
 
 --
 -- Indexes for table `lends`
 --
 ALTER TABLE `lends`
-  ADD PRIMARY KEY (`id_loans`),
-  ADD KEY `lends_ibfk_1` (`id_user`),
-  ADD KEY `lends_ibfk_2` (`id_inventory`);
+  ADD PRIMARY KEY (`id_lends`),
+  ADD KEY `lends_ibfk_1` (`id_user`);
 
 --
 -- Indexes for table `model`
@@ -313,13 +315,15 @@ ALTER TABLE `roles`
 -- Indexes for table `settings`
 --
 ALTER TABLE `settings`
-  ADD PRIMARY KEY (`id_setting`);
+  ADD PRIMARY KEY (`id_setting`),
+  ADD KEY `settings_ibfk_1` (`id_users`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id_users`);
+  ADD PRIMARY KEY (`id_users`),
+  ADD KEY `users_ibfk_1` (`id_modules`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -329,7 +333,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `auth`
 --
 ALTER TABLE `auth`
-  MODIFY `id_auth` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_auth` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `borrowed_objects`
+--
+ALTER TABLE `borrowed_objects`
+  MODIFY `id_borrowed_object` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `brands`
@@ -344,12 +354,6 @@ ALTER TABLE `faculty`
   MODIFY `id_faculty` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `history`
---
-ALTER TABLE `history`
-  MODIFY `id_history` int NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
@@ -359,7 +363,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `lends`
 --
 ALTER TABLE `lends`
-  MODIFY `id_loans` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_lends` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `model`
@@ -389,11 +393,24 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_users` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `auth`
+--
+ALTER TABLE `auth`
+  ADD CONSTRAINT `auth_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id_role`);
+
+--
+-- Constraints for table `borrowed_objects`
+--
+ALTER TABLE `borrowed_objects`
+  ADD CONSTRAINT `borrowed_objects_ibfk_1` FOREIGN KEY (`id_lends`) REFERENCES `lends` (`id_lends`),
+  ADD CONSTRAINT `borrowed_objects_ibfk_2` FOREIGN KEY (`id_inventory`) REFERENCES `inventory` (`id_inventory`);
 
 --
 -- Constraints for table `inventory`
@@ -401,20 +418,32 @@ ALTER TABLE `users`
 ALTER TABLE `inventory`
   ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`id_brand`) REFERENCES `brands` (`id_brand`),
   ADD CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`id_model`) REFERENCES `model` (`id_model`),
-  ADD CONSTRAINT `inventory_ibfk_3` FOREIGN KEY (`id_faculty`) REFERENCES `faculty` (`id_faculty`);
+  ADD CONSTRAINT `inventory_ibfk_3` FOREIGN KEY (`id_faculty`) REFERENCES `faculty` (`id_faculty`),
+  ADD CONSTRAINT `inventory_ibfk_4` FOREIGN KEY (`id_module`) REFERENCES `modules` (`id_modules`);
 
 --
 -- Constraints for table `lends`
 --
 ALTER TABLE `lends`
-  ADD CONSTRAINT `lends_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_users`),
-  ADD CONSTRAINT `lends_ibfk_2` FOREIGN KEY (`id_inventory`) REFERENCES `inventory` (`id_inventory`);
+  ADD CONSTRAINT `lends_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_users`);
 
 --
 -- Constraints for table `modules`
 --
 ALTER TABLE `modules`
   ADD CONSTRAINT `modules_ibfk_1` FOREIGN KEY (`id_faculty`) REFERENCES `faculty` (`id_faculty`);
+
+--
+-- Constraints for table `settings`
+--
+ALTER TABLE `settings`
+  ADD CONSTRAINT `settings_ibfk_1` FOREIGN KEY (`id_users`) REFERENCES `users` (`id_users`);
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_modules`) REFERENCES `modules` (`id_modules`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
