@@ -20,7 +20,6 @@ module.exports = function (database){
     async function insert(body){
         const user = {
             id_users: body.id_users,
-            id_role: body.id_role,
             name: body.name, 
             status: body.status,
             id_modules: body.id_modules
@@ -40,7 +39,8 @@ module.exports = function (database){
             responseAuth = await auth.insert({
                 id_auth: insertId,
                 worker_number: body.worker_number,
-                password: body.password
+                password: body.password,
+                id_role: body.id_role
             })
         }
 

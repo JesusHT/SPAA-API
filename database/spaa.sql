@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 23, 2024 at 05:19 AM
+-- Generation Time: Sep 23, 2024 at 05:33 AM
 -- Server version: 8.0.39-0ubuntu0.24.04.2
 -- PHP Version: 8.3.6
 
@@ -105,7 +105,6 @@ CREATE TABLE `inventory` (
   `id_inventory` int NOT NULL,
   `id_brand` int DEFAULT NULL,
   `id_model` int DEFAULT NULL,
-  `id_faculty` int DEFAULT NULL,
   `id_module` int NOT NULL,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `quantity` int NOT NULL,
@@ -282,7 +281,6 @@ ALTER TABLE `inventory`
   ADD PRIMARY KEY (`id_inventory`),
   ADD KEY `inventory_ibfk_1` (`id_brand`),
   ADD KEY `inventory_ibfk_2` (`id_model`),
-  ADD KEY `inventory_ibfk_3` (`id_faculty`),
   ADD KEY `inventory_ibfk_4` (`id_module`);
 
 --
@@ -418,7 +416,6 @@ ALTER TABLE `borrowed_objects`
 ALTER TABLE `inventory`
   ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`id_brand`) REFERENCES `brands` (`id_brand`),
   ADD CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`id_model`) REFERENCES `model` (`id_model`),
-  ADD CONSTRAINT `inventory_ibfk_3` FOREIGN KEY (`id_faculty`) REFERENCES `faculty` (`id_faculty`),
   ADD CONSTRAINT `inventory_ibfk_4` FOREIGN KEY (`id_module`) REFERENCES `modules` (`id_modules`);
 
 --
