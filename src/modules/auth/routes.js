@@ -11,6 +11,7 @@ async function login(req, res, next) {
    try {
       const token = await controller.login(req.body);
 
+      /*
       res.setHeader('Set-Cookie', serialize('token', token, {
          httpOnly: true,
          secure: process.env.NODE_ENV === 'production',
@@ -20,6 +21,8 @@ async function login(req, res, next) {
       }));
 
       console.log(`Token; ${token}`);
+      
+      */
 
       response.success(req, res, token, 200);
    } catch (error) {
