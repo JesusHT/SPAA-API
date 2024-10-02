@@ -14,7 +14,7 @@ module.exports = function (database){
         try {
             const data = await db.query(TABLE, body.worker_number);
     
-            if (!data) { throw error(MESSAGE.ERROR_USER_NOT_FOUND, 401); }
+            if (!data) { throw error(MESSAGE.ERROR_AUTHENTICATION, 401); }
     
             const isMatch = await bcrypt.compare(body.password, data.password);
     
