@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 23, 2024 at 05:33 AM
+-- Generation Time: Oct 03, 2024 at 07:37 PM
 -- Server version: 8.0.39-0ubuntu0.24.04.2
 -- PHP Version: 8.3.6
 
@@ -39,7 +39,7 @@ CREATE TABLE `auth` (
 --
 
 INSERT INTO `auth` (`id_auth`, `worker_number`, `password`, `id_role`) VALUES
-(1, 20181834, '$2b$10$h2TFfuePs.1XeYZafcueaeRRENlu26Dtdl1LO.9az3EjXbbj9Bp6u', 3);
+(1, 20181834, '$2b$10$h2TFfuePs.1XeYZafcueaeRRENlu26Dtdl1LO.9az3EjXbbj9Bp6u', 2);
 
 -- --------------------------------------------------------
 
@@ -116,6 +116,24 @@ CREATE TABLE `inventory` (
   `image_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`id_inventory`, `id_brand`, `id_model`, `id_module`, `name`, `quantity`, `folio`, `description`, `serie`, `not_located`, `second_custodian`, `image_url`, `status`) VALUES
+(1, 1, 1, 1, 'Laptop Dell XPS 13', 5, 1001, 'Ultrabook compacta', 'SN1234567890', NULL, NULL, 'https://example.com/image1.jpg', 1),
+(2, 2, 2, 1, 'Laptop HP Pavilion 14', 3, 1002, 'Laptop de uso general', 'SN0987654321', NULL, NULL, 'https://example.com/image2.jpg', 1),
+(3, 3, 3, 1, 'Monitor Acer 24\"', 10, 1003, 'Monitor Full HD', 'SN1122334455', NULL, NULL, 'https://example.com/image3.jpg', 1),
+(4, 4, 4, 1, 'Laptop Lenovo ThinkPad X1', 7, 1004, 'Laptop empresarial', 'SN6677889900', NULL, NULL, 'https://example.com/image4.jpg', 1),
+(5, 5, 5, 1, 'Impresora Epson EcoTank', 2, 1005, 'Impresora multifuncional', 'SN1234432112', NULL, NULL, 'https://example.com/image5.jpg', 1),
+(6, 1, 6, 1, 'Laptop Dell Inspiron 15', 4, 1006, 'Laptop multimedia', 'SN5566778899', NULL, NULL, 'https://example.com/image6.jpg', 1),
+(7, 2, 7, 1, 'Monitor HP EliteDisplay', 8, 1007, 'Monitor empresarial', 'SN9988776655', NULL, NULL, 'https://example.com/image7.jpg', 1),
+(8, 3, 8, 1, 'Laptop Acer Nitro 7', 6, 1008, 'Laptop para gaming', 'SN3344556677', NULL, NULL, 'https://example.com/image8.jpg', 1),
+(9, 4, 9, 1, 'Laptop Lenovo IdeaPad 3', 5, 1009, 'Laptop asequible', 'SN2233445566', NULL, NULL, 'https://example.com/image9.jpg', 1),
+(10, 5, 10, 1, 'Impresora Epson WorkForce', 3, 1010, 'Impresora de oficina', 'SN4455667788', NULL, NULL, 'https://example.com/image10.jpg', 1),
+(11, NULL, NULL, 2, 'Laptop', 1, 432234, 'LAPTOP color plateado', '124432', NULL, NULL, NULL, 1),
+(12, NULL, NULL, 2, 'Laptop', 1, 123912, 'LAPTOP color rosa', '124412', NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -355,7 +373,7 @@ ALTER TABLE `faculty`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id_inventory` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_inventory` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `lends`
