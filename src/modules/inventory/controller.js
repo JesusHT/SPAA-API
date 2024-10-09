@@ -32,11 +32,11 @@ module.exports = function (database) {
         }
 
         if (id_model === 0) {
-            if (!body.name_model) {
-                throw new Error('name_model es requerido cuando id_model es 0');
+            if (!body.model_name) {
+                throw new Error('model_name es requerido cuando id_model es 0');
             }
             const newModel = {
-                name: body.name_model
+                name: body.model_name
             };
             const modelResponse = await db.insert(MODEL_TABLE, newModel);
             id_model = modelResponse.insertId;
