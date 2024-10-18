@@ -19,7 +19,12 @@ module.exports = function (database){
             const isMatch = await bcrypt.compare(body.password, data.password);
     
             if (isMatch) {
-                return auth.generateToken({...data});
+                const dataUser = {
+                    id_role: data.id_role,
+                    token: auth.generateToken({...data})
+                }
+
+                return dataUser;
             } else {
                 throw error(MESSAGE.ERROR_AUTHENTICATION, 401);
             }
