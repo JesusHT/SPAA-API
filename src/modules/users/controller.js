@@ -1,5 +1,6 @@
 const TABLE = 'users';
 const auth = require('../auth');
+const settings = require('../settings');
 
 module.exports = function (database){
 
@@ -40,7 +41,18 @@ module.exports = function (database){
                 id_auth: insertId,
                 worker_number: body.worker_number,
                 password: body.password,
-                id_role: body.id_role
+                id_role: body.id_role,
+                email: body.email
+            })
+        }
+
+        var responseSettings = '';
+        if (body.id_role === 3) {
+            responseSettings = await settings.insert({
+                id_users: insertId,
+                delete: body.delete,
+                edit: body.edit,
+                lends: body.lends
             })
         }
 
