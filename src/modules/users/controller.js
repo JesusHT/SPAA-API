@@ -23,7 +23,8 @@ module.exports = function (database){
             id_users: body.id_users,
             name: body.name, 
             status: body.status,
-            id_modules: body.id_modules
+            id_modules: body.id_modules,
+            email: body.email
         }
 
         const response = await db.insert(TABLE, user);
@@ -41,8 +42,7 @@ module.exports = function (database){
                 id_auth: insertId,
                 worker_number: body.worker_number,
                 password: body.password,
-                id_role: body.id_role,
-                email: body.email
+                id_role: body.id_role
             })
         }
 
