@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 03, 2024 at 07:37 PM
+-- Generation Time: Oct 21, 2024 at 05:59 AM
 -- Server version: 8.0.39-0ubuntu0.24.04.2
 -- PHP Version: 8.3.6
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `auth` (
   `id_auth` int NOT NULL,
   `worker_number` int NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_role` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -39,7 +39,7 @@ CREATE TABLE `auth` (
 --
 
 INSERT INTO `auth` (`id_auth`, `worker_number`, `password`, `id_role`) VALUES
-(1, 20181834, '$2b$10$h2TFfuePs.1XeYZafcueaeRRENlu26Dtdl1LO.9az3EjXbbj9Bp6u', 2);
+(1, 20181834, '$2b$10$h2TFfuePs.1XeYZafcueaeRRENlu26Dtdl1LO.9az3EjXbbj9Bp6u', 1);
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,7 @@ CREATE TABLE `borrowed_objects` (
 
 CREATE TABLE `brands` (
   `id_brand` int NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -73,7 +73,8 @@ INSERT INTO `brands` (`id_brand`, `name`) VALUES
 (2, 'HP'),
 (3, 'Acer'),
 (4, 'Lenovo'),
-(5, 'Epson');
+(5, 'Epson'),
+(6, 'Asus');
 
 -- --------------------------------------------------------
 
@@ -83,7 +84,7 @@ INSERT INTO `brands` (`id_brand`, `name`) VALUES
 
 CREATE TABLE `faculty` (
   `id_faculty` int NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -106,14 +107,14 @@ CREATE TABLE `inventory` (
   `id_brand` int DEFAULT NULL,
   `id_model` int DEFAULT NULL,
   `id_module` int NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `quantity` int NOT NULL,
   `folio` int NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `serie` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `serie` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `not_located` int DEFAULT NULL,
   `second_custodian` int DEFAULT NULL,
-  `image_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -132,8 +133,7 @@ INSERT INTO `inventory` (`id_inventory`, `id_brand`, `id_model`, `id_module`, `n
 (8, 3, 8, 1, 'Laptop Acer Nitro 7', 6, 1008, 'Laptop para gaming', 'SN3344556677', NULL, NULL, 'https://example.com/image8.jpg', 1),
 (9, 4, 9, 1, 'Laptop Lenovo IdeaPad 3', 5, 1009, 'Laptop asequible', 'SN2233445566', NULL, NULL, 'https://example.com/image9.jpg', 1),
 (10, 5, 10, 1, 'Impresora Epson WorkForce', 3, 1010, 'Impresora de oficina', 'SN4455667788', NULL, NULL, 'https://example.com/image10.jpg', 1),
-(11, NULL, NULL, 2, 'Laptop', 1, 432234, 'LAPTOP color plateado', '124432', NULL, NULL, NULL, 1),
-(12, NULL, NULL, 2, 'Laptop', 1, 123912, 'LAPTOP color rosa', '124412', NULL, NULL, NULL, 1);
+(13, 6, 11, 2, 'Laptop', 897321, 1234123, 'LAPTOP color plateado', '124432', NULL, NULL, './Asus,jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -152,11 +152,11 @@ CREATE TABLE `lends` (
   `num_account` int NOT NULL,
   `career` int NOT NULL,
   `semester` int NOT NULL,
-  `observations` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `teacher` text COLLATE utf8mb4_unicode_ci,
+  `observations` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `teacher` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `reminder_sent` tinyint(1) DEFAULT NULL,
-  `signature_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `signature_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -167,7 +167,7 @@ CREATE TABLE `lends` (
 
 CREATE TABLE `model` (
   `id_model` int NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -184,7 +184,8 @@ INSERT INTO `model` (`id_model`, `name`) VALUES
 (7, 'ThinkPad X1 Carbon'),
 (8, 'IdeaPad 3'),
 (9, 'EcoTank L3110'),
-(10, 'WorkForce WF-2850');
+(10, 'WorkForce WF-2850'),
+(11, 'Asus vivobook');
 
 -- --------------------------------------------------------
 
@@ -195,7 +196,7 @@ INSERT INTO `model` (`id_model`, `name`) VALUES
 CREATE TABLE `modules` (
   `id_modules` int NOT NULL,
   `id_faculty` int NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -215,7 +216,7 @@ INSERT INTO `modules` (`id_modules`, `id_faculty`, `name`) VALUES
 
 CREATE TABLE `roles` (
   `id_role` int NOT NULL,
-  `role_name` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `role_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -235,9 +236,10 @@ INSERT INTO `roles` (`id_role`, `role_name`) VALUES
 
 CREATE TABLE `settings` (
   `id_setting` int NOT NULL,
-  `setting_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `setting_value` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_users` int NOT NULL
+  `id_users` int NOT NULL,
+  `delete` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `edit` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `lends` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -248,7 +250,7 @@ CREATE TABLE `settings` (
 
 CREATE TABLE `users` (
   `id_users` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int NOT NULL,
   `id_modules` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -361,7 +363,7 @@ ALTER TABLE `borrowed_objects`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id_brand` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_brand` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `faculty`
@@ -373,7 +375,7 @@ ALTER TABLE `faculty`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id_inventory` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_inventory` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `lends`
@@ -385,7 +387,7 @@ ALTER TABLE `lends`
 -- AUTO_INCREMENT for table `model`
 --
 ALTER TABLE `model`
-  MODIFY `id_model` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_model` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `modules`
