@@ -36,7 +36,8 @@ module.exports = function (database){
     async function insert(data){
 
         const authData = {
-            id_auth: data.id_auth
+            id_auth: data.id_auth,
+            id_role: data.id_role
         }
 
         if(data.worker_number){ authData.worker_number = data.worker_number; }
