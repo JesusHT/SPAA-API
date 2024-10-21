@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 21, 2024 at 05:59 AM
+-- Generation Time: Oct 21, 2024 at 12:32 PM
 -- Server version: 8.0.39-0ubuntu0.24.04.2
 -- PHP Version: 8.3.6
 
@@ -252,15 +252,16 @@ CREATE TABLE `users` (
   `id_users` int NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int NOT NULL,
-  `id_modules` int NOT NULL
+  `id_modules` int NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_users`, `name`, `status`, `id_modules`) VALUES
-(1, 'Fatima', 1, 2);
+INSERT INTO `users` (`id_users`, `name`, `status`, `id_modules`, `email`) VALUES
+(1, 'Fatima', 1, 2, 'fmarin0@ucol.mx');
 
 --
 -- Indexes for dumped tables
