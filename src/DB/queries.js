@@ -2,7 +2,7 @@ const connection = require('./connection');
 
 function getAll(TABLE){
     return new Promise((resolve, reject)=>{
-        connection.query(`SELECT * FROM ${TABLE}`,(error, response)=>{
+        connection.query(`SELECT * FROM ${TABLE} WHERE status IN (1, 2)`, (error, response) => {
             return error ? reject(error) : resolve(response);
         });
     });
@@ -34,12 +34,12 @@ function update(TABLE, data) {
 }
 
 function deleteItem(TABLE, data){
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
         const idKey = `id_${TABLE}`;
-        connection.query(`DELETE FROM ${TABLE} WHERE id_${TABLE} = ?`, data[idKey],(error, response)=>{
+        connection.query(`UPDATE ${TABLE} SET status = 0 WHERE id_${TABLE} = ?`, [data[idKey]], (error, response) => {
             return error ? reject(error) : resolve(response);
         });
-    }); 
+    });
 }
 
 function query(TABLE, worker_number){
