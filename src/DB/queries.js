@@ -2,7 +2,7 @@ const connection = require('./connection');
 
 function getAll(TABLE){
     return new Promise((resolve, reject)=>{
-        connection.query(`SELECT * FROM ${TABLE} WHERE status IN (1, 2)`, (error, response) => {
+        connection.query(`SELECT * FROM ${TABLE}`, (error, response) => {
             return error ? reject(error) : resolve(response);
         });
     });
