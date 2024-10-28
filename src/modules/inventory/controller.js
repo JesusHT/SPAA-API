@@ -48,6 +48,7 @@ module.exports = function (database) {
             id_module: inventoryData.id_module,
             name: inventoryData.name,
             quantity: inventoryData.quantity,
+            stock: inventoryData.quantity,
             folio: inventoryData.folio,
             description: inventoryData.description || null,
             serie: inventoryData.serie || null,

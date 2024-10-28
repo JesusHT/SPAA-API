@@ -1,5 +1,5 @@
 const auth  = require('../../auth');
-const TABLE = "lends";
+const TABLE = "borrow";
 
 module.exports = function validateAuth() {
     return async function middleware(req, res, next) {

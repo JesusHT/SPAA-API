@@ -16,12 +16,14 @@ const models        = require('./modules/models/routes');
 const laboratories  = require('./modules/laboratories/routes');
 const roles         = require('./modules/roles/routes');
 const settings      = require('./modules/settings/routes');
-const lends         = require('./modules/lends/routes');
+const borrow        = require('./modules/borrow/routes');
+const career        = require('./modules/career/routes')
 
 const app = express();
 
 app.use(cors({
-    origin:  [
+    origin:[
+        'http://192.168.1.94:19000',
         'http://localhost:3000',
         'http://localhost:8081'],
     credentials: true 
@@ -52,7 +54,8 @@ app.use('/api/modelos', models);
 app.use('/api/laboratorios', laboratories);
 app.use('/api/roles', roles);
 app.use('/api/ajustes', settings);
-app.use('/api/prestamos', lends);
+app.use('/api/prestamos', borrow);
+app.use('/api/carreras', career);
 app.use(error);
 
 module.exports = app;
