@@ -35,7 +35,7 @@ module.exports = function (database){
         } else {
             insertId = body.id_users;
         }
-
+        
         var responseAuth = '';
         if(body.worker_number || body.password){
             responseAuth = await auth.insert({

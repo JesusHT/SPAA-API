@@ -6,11 +6,11 @@ const controller = require('./index');
 
 const router = express.Router();
 
-router.get('/', getAll);
-router.get('/:id', get);
-router.delete('/', deleteItem);
+router.get('/', security(), getAll);
+router.get('/:id', security(), get);
+router.delete('/', security(), deleteItem);
 router.post('/', insert);
-router.put('/',update);
+router.put('/', security(),update);
 
 async function getAll(req, res, next){
    try {

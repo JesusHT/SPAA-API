@@ -55,8 +55,10 @@ module.exports = function (database) {
             not_located: inventoryData.not_located || null,
             second_custodian: inventoryData.second_custodian || null,
             image_url: inventoryData.image_url || null,
-            status: inventoryData.status
+            status: inventoryData.status,
+            ...(inventoryData.id_inventory ? { id_inventory: inventoryData.id_inventory } : {})
         };
+          
 
         const inventoryResponse = await db.insert(TABLE, inventory);
         const insertedInventory = await db.get(TABLE, inventoryResponse.insertId);

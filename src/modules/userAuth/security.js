@@ -1,5 +1,5 @@
-const auth = require('../../auth')
-const TABLE = "users";
+const auth = require('../../auth');
+const TABLE = "auth";
 
 module.exports = function validateAuth(){
 

@@ -35,6 +35,8 @@ module.exports = function (database){
 
     async function insert(data){
 
+        console.log(data)
+
         const authData = {
             id_auth: data.id_auth,
             id_role: data.id_role

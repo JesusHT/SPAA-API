@@ -17,7 +17,8 @@ const laboratories  = require('./modules/laboratories/routes');
 const roles         = require('./modules/roles/routes');
 const settings      = require('./modules/settings/routes');
 const borrow        = require('./modules/borrow/routes');
-const career        = require('./modules/career/routes')
+const career        = require('./modules/career/routes');
+const authData      = require('./modules/userAuth/routes.js');
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.set('port', config.app.port);
 app.use('/api/auth', auth);
 
 // Routes
+app.use('/api/authdata/', authData);
 app.use('/api/inventario', inventory);
 app.use('/api/usuarios', users);
 app.use('/api/facultad', faculty);

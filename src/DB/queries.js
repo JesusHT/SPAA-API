@@ -50,7 +50,16 @@ function query(TABLE, worker_number){
     });
 }
 
+function getRole(TABLE, id){
+    return new Promise((resolve, reject)=>{
+        connection.query(`SELECT id_role FROM ${TABLE} WHERE id_${TABLE}=${id}`,(error, response)=>{
+            return error ? reject(error) : resolve(response);
+        });
+    });
+}
+
 module.exports = {
+    getRole,
     getAll,
     get,
     insert,
