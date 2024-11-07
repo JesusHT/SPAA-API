@@ -52,7 +52,33 @@ function query(TABLE, worker_number){
 
 function getRole(TABLE, id){
     return new Promise((resolve, reject)=>{
-        connection.query(`SELECT id_role FROM ${TABLE} WHERE id_${TABLE}=${id}`,(error, response)=>{
+        connection.query(`SELECT id_role, worker_number FROM ${TABLE} WHERE id_${TABLE}=${id}`,(error, response)=>{
+            return error ? reject(error) : resolve(response);
+        });
+    });
+}
+
+function getInventoryDetails(id_inventory) {
+    return new Promise((resolve, reject) => {
+        const query = `
+            SELECT 
+                inventory.*, 
+                brands.name AS brand_name,
+                model.name AS model_name,
+                modules.name AS module_name
+            FROM 
+                inventory
+            INNER JOIN 
+                brands ON inventory.id_brand = brands.id_brands
+            INNER JOIN 
+                model ON inventory.id_model = model.id_model
+            INNER JOIN 
+                modules ON inventory.id_module = modules.id_modules
+            WHERE 
+                inventory.id_inventory = ?;
+        `;
+        
+        connection.query(query, [id_inventory], (error, response) => {
             return error ? reject(error) : resolve(response);
         });
     });
@@ -65,5 +91,6 @@ module.exports = {
     insert,
     update,
     deleteItem,
-    query
+    query,
+    getInventoryDetails
 }

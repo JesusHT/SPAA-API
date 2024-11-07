@@ -17,6 +17,10 @@ module.exports = function (database) {
         return db.get(TABLE, id);
     }
 
+    function getInventoryDetails(id){
+        return db.getInventoryDetails(id);
+    }
+
     async function insert(body) {
         let { id_brand, id_model, ...inventoryData } = body;
 
@@ -79,6 +83,7 @@ module.exports = function (database) {
         get,
         insert,
         update,
-        deleteItem
+        deleteItem,
+        getInventoryDetails
     };
 };

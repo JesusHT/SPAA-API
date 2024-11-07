@@ -50,7 +50,7 @@ module.exports = function (database){
         if (body.id_role === 3) {
             responseSettings = await settings.insert({
                 id_users: insertId,
-                delete: body.delete,
+                delete: body.deleteP,
                 edit: body.edit,
                 lends: body.lends
             })
