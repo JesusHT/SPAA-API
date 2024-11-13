@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', security(), getAll);
 router.get('/:id',security(), get);
 router.get('/details/:id', security(), getInventoryDetails);
-router.delete('/',security(), deleteItem);
+router.delete('/:id',security(), deleteItem);
 router.post('/', security(), insert);
 router.put('/', security(), update);
 
@@ -41,7 +41,7 @@ async function getInventoryDetails(req, res, next){
 
 async function deleteItem(req, res, next){
    try {
-      const items = await controller.deleteItem(req.body);
+      const items = await controller.deleteItem(req.params.id);
       responses.success(req, res, 'Item successfully removed', 200);
    } catch (error) {
       next(error);

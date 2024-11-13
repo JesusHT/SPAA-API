@@ -33,10 +33,10 @@ function update(TABLE, data) {
     });
 }
 
-function deleteItem(TABLE, data){
+function deleteItem(TABLE, id){
     return new Promise((resolve, reject) => {
         const idKey = `id_${TABLE}`;
-        connection.query(`UPDATE ${TABLE} SET status = 0 WHERE id_${TABLE} = ?`, [data[idKey]], (error, response) => {
+        connection.query(`UPDATE ${TABLE} SET status = 0 WHERE id_${TABLE}=${id}`, (error, response) => {
             return error ? reject(error) : resolve(response);
         });
     });
