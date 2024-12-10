@@ -16,6 +16,10 @@ module.exports = function (database) {
         return db.get(TABLE, id);
     }
 
+    function getBorrowDetailsById(id){
+        return db.getBorrowedInventoryDetails(id)
+    }
+
     async function insert(body) {
         const { applicant, num_account, id_career, semester, teacher, practice_name, email, id_users, borrowedItems } = body;
         
@@ -78,6 +82,7 @@ module.exports = function (database) {
         get,
         deleteItem,
         insert,
-        update
+        update,
+        getBorrowDetailsById
     };
 };

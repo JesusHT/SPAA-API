@@ -8,7 +8,8 @@ const router = express.Router();
 
 router.get('/', security(), getAll);
 router.get('/:id',security(), get);
-router.delete('/',security(), deleteItem);
+router.get('/details/:id',security(), getBorrowDetails);
+router.delete('/:id',security(), deleteItem);
 router.post('/', security(), insert);
 router.put('/', security(), update);
 
@@ -30,9 +31,19 @@ async function get(req, res, next){
    }
 }
 
+async function getBorrowDetails(req, res, next){
+   try {
+      const items = await controller.getBorrowDetailsById(req.params.id);
+      responses.success(req, res, items, 200);
+   } catch (error) {
+      next(error);
+   }
+}
+
+
 async function deleteItem(req, res, next){
    try {
-      const items = await controller.deleteItem(req.body);
+      const items = await controller.deleteItem(req.params.id);
       responses.success(req, res, 'Item successfully removed', 200);
    } catch (error) {
       next(error);

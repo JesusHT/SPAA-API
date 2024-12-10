@@ -84,6 +84,41 @@ function getInventoryDetails(id_inventory) {
     });
 }
 
+function getBorrowedInventoryDetails(id_borrow) {
+    return new Promise((resolve, reject) => {
+        const query = `
+            SELECT 
+                borrowed_objects.*, 
+                inventory.*, 
+                brands.name AS brand_name,
+                model.name AS model_name,
+                modules.name AS module_name,
+                borrowed_objects.quantity as quantity_borrowed,
+                career.name AS career_name
+            FROM 
+                borrowed_objects
+            INNER JOIN 
+                inventory ON borrowed_objects.id_inventory = inventory.id_inventory
+            INNER JOIN 
+                brands ON inventory.id_brand = brands.id_brands
+            INNER JOIN 
+                model ON inventory.id_model = model.id_model
+            INNER JOIN 
+                modules ON inventory.id_module = modules.id_modules
+            INNER JOIN 
+                borrow ON borrowed_objects.id_borrow = borrow.id_borrow
+            INNER JOIN 
+                career ON borrow.id_career = career.id_career
+            WHERE 
+                borrowed_objects.id_borrow = ?;
+        `;
+        
+        connection.query(query, [id_borrow], (error, response) => {
+            return error ? reject(error) : resolve(response);
+        });
+    });
+}
+
 module.exports = {
     getRole,
     getAll,
@@ -92,5 +127,6 @@ module.exports = {
     update,
     deleteItem,
     query,
-    getInventoryDetails
+    getInventoryDetails,
+    getBorrowedInventoryDetails
 }
