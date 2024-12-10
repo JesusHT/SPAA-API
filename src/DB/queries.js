@@ -58,6 +58,14 @@ function getRole(TABLE, id){
     });
 }
 
+function getSettingsById(id){
+    return new Promise((resolve, reject)=>{
+        connection.query(`SELECT * FROM settings WHERE id_users=${id}`,(error, response)=>{
+            return error ? reject(error) : resolve(response);
+        });
+    });
+}
+
 function getInventoryDetails(id_inventory) {
     return new Promise((resolve, reject) => {
         const query = `
@@ -128,5 +136,6 @@ module.exports = {
     deleteItem,
     query,
     getInventoryDetails,
-    getBorrowedInventoryDetails
+    getBorrowedInventoryDetails,
+    getSettingsById
 }

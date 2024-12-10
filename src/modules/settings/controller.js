@@ -27,9 +27,14 @@ module.exports = function (database){
         return db.deleteItem(TABLE, body);
     }
 
+    function getSettingsById(id){
+        return db.getSettingsById(id)
+    }
+
     return {
         getAll,
         get,
+        getSettingsById,
         deleteItem,
         insert,
         update

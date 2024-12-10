@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get('/', security(), getAll);
 router.get('/:id',security(), get);
+router.get('/byuser/:id',security(), getSettingsById);
 router.delete('/',security(), deleteItem);
 router.post('/', security(), insert);
 router.put('/', security(), update);
@@ -24,6 +25,15 @@ async function getAll(req, res, next){
 async function get(req, res, next){
    try {
       const items = await controller.get(req.params.id);
+      responses.success(req, res, items, 200);
+   } catch (error) {
+      next(error);
+   }
+}
+
+async function getSettingsById(req, res, next){
+   try {
+      const items = await controller.getSettingsById(req.params.id);
       responses.success(req, res, items, 200);
    } catch (error) {
       next(error);
